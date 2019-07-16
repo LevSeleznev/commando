@@ -6,10 +6,10 @@ using System;
 
 public class UIController : MonoBehaviour
 {
-    [SerializeField] private Text scoreLabel;
+    [SerializeField] private Text chargeLabel;
 
     private void onFlashlightChargeChanged(int charge)
     {
-        scoreLabel.text = charge.ToString() + "%";
+        chargeLabel.text = charge.ToString() + "%";
     }
 }
