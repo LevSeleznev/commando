@@ -43,5 +43,7 @@ public class Flashlight : BaseObject
                 ActiveFlashlight(false);
             }
         }
+
+        // Добавление логики для фонарика
     }
 }
