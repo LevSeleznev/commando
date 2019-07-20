@@ -12,10 +12,13 @@ public class Flashlight : BaseObject
     private float currReloadTime;
     Material _lightMat;
 
+    private UIController uiController;
+
     void Start()
     {
         _light = GetComponentInChildren<Light>();
         _lightMat = GetMaterial;
+        uiController = GetComponent<UIController>();
     }
 
     private void ActiveFlashlight(bool val)
@@ -39,9 +42,19 @@ public class Flashlight : BaseObject
             currTime += Time.deltaTime;
             if (currTime > timeout)
             {
-                currTime = 0;
                 ActiveFlashlight(false);
             }
+        }
+        // Добавление логики для фонарика
+        else if (currTime > 0)
+        {
+            currTime -= Time.deltaTime;
+        }
+
+        if (uiController)
+        {
+            float chargePercents = 100 - ((currTime / timeout) * 100);
+            uiController.BroadcastMessage("onFlashlightChargeChanged", chargePercents);
         }
     }
 }
