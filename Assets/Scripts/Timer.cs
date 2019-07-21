@@ -1,18 +1,36 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 
-public class Timer : MonoBehaviour
+public sealed class Timer
 {
-    // Start is called before the first frame update
-    void Start()
+    DateTime _start;
+    float _elapsed = -1;
+    private TimeSpan _duration;
+
+    public void Start(float elapsed)
     {
-        
+        _elapsed = elapsed;
+        _start = DateTime.Now;
+        _duration = TimeSpan.Zero;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Update()
     {
-        
+        if (_elapsed > 0)
+        {
+            _duration = DateTime.Now - _start;
+            if (_duration.TotalSeconds > _elapsed)
+            {
+                _elapsed = 0;
+            }
+        }
+        if (_elapsed == 0)
+        {
+            _elapsed = -1;
+        }
+    }
+
+    public bool IsEvent()
+    {
+        return _elapsed == 0;
     }
 }
